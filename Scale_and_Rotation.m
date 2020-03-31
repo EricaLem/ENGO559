@@ -1,4 +1,4 @@
-% Kelly Harke, Erica Lemieux
+git % Kelly Harke, Erica Lemieux
 % ENGO 559 - Digital Imaging
 % Image Rotation and Scale Using Automated Feature Matching
 

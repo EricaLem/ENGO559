@@ -23,9 +23,11 @@ imshowpair(image, subimage, 'montage')
 
 % 2. Perform cross-correlation, and display the result as a surface
 d = normxcorr2(subimage, image);
-figure
-surf(d)
-shading flat
+figure;
+title('Cross-correlation with Built-In Function normxcorr2')
+set(gcf, 'color', 'w');
+surf(d);
+shading flat;
 
 image = im2double(image);
 subimage = im2double(subimage);
@@ -41,8 +43,8 @@ end
 [r,c] = size(image);
 [m,n] = size(subimage);
 
-subimage_size = m*n; % size of subimage
-subimage_mean = sum(subimage, 'all') / subimage_size;
+subimage_mean = mean(mean(subimage));
+image_mean = mean(mean(image));
 sum1 = 0;
 sum2 = 0;
 
@@ -63,9 +65,9 @@ for x = mid_rows+1:r-mid_rows
     k = 1;
 end
 
+% Compute correlation
 for x = mid_rows+1:size(Rep, 1)-mid_rows
     for y = mid_cols+1:size(Rep, 2)-mid_cols
-        image_mean = sum(Rep(x-mid_rows:x+mid_rows, y-mid_cols:y+mid_cols), 'all') / subimage_size;
         numerator = sum(sum((Rep(x-mid_rows:x+mid_rows, y-mid_cols:y+mid_cols)-image_mean).*(subimage-subimage_mean)));
         denominator = power(sum(sum(power(Rep(x-mid_rows:x+mid_rows, y-mid_cols:y+mid_cols)-image_mean, 2)))*sum(sum(power(subimage-subimage_mean, 2))), 0.5);
         output(x, y) = numerator / denominator;
@@ -73,33 +75,11 @@ for x = mid_rows+1:size(Rep, 1)-mid_rows
 end
 
 % display
-figure
-surf(output)
-shading flat
-
-
-% for x = 1 : r+m-1
-%     for y = 1 : n+c-1
-%         image_mean = sum(Rep(x:x+m-1 , y:y+n-1), 'all') / subimage_size;
-%         for i = 1 : m
-%             for j = 1 : n
-%                 term1 = Rep(x+i-1, y+j-1) - image_mean;
-%                 term2 = subimage(i, j) - subimage_mean;
-%                 output(x, y) = output(x, y) + (term1*term2) ;
-%                 sum1 = term1*term1 + sum1;
-%                 sum2 = term2*term2 + sum2;
-%             end
-%         end
-%         output(x, y) = output(x, y) / (power(sum1, 0.5)*power(sum2, 0.5));
-%         sum1 = 0;
-%         sum2 = 0;
-%     end
-% end
-% 
-% % display
-% figure
-% surf(output)
-% shading flat
+figure;
+title('Cross-correlation of Image and Subimage')
+set(gcf, 'color', 'w');
+surf(output);
+shading flat;
 
 % 3. Find the peak in cross-correlation
 
@@ -113,6 +93,8 @@ xoffSet = xpeak-size(subimage, 2);
 % 5. Display the matched area
 
 figure;
+set(gcf, 'color', 'w');
+title('Location of Subimage within Image')
 imshow(image);
 imrect(gca, [xoffSet+1, yoffSet+1, size(subimage,2), size(subimage,1)]);
 

@@ -16,8 +16,11 @@ clc;
 
 % 1. Choose 2 images, one which is the sub-set of the other
 
-subimage = rgb2gray(imread('orange3.JPG')); % read images and convert to grayscale
-image = rgb2gray(imread('fruit1.JPG'));
+subimage = rgb2gray(imread('Object.JPG')); % read images and convert to grayscale
+image = rgb2gray(imread('Original.jpg'));
+% image = rgb2gray(imread('Rotated.jpg'));
+% image = rgb2gray(imread('Skewed.jpg'));
+
 
 imshowpair(image, subimage, 'montage')
 
@@ -31,6 +34,8 @@ shading flat;
 
 image = im2double(image);
 subimage = im2double(subimage);
+
+tic;
 
 % Make subimage oddxodd
 if mod(size(subimage, 1), 2) ~= 1 % rows = 1 keep
@@ -90,14 +95,15 @@ shading flat;
 yoffSet = ypeak-size(subimage, 1);
 xoffSet = xpeak-size(subimage, 2);
 
+toc
+
 % 5. Display the matched area
 
 figure;
 set(gcf, 'color', 'w');
 title('Location of Subimage within Image')
 imshow(image);
-imrect(gca, [xoffSet+1, yoffSet+1, size(subimage,2), size(subimage,1)]);
-
+drawrectangle('Position',[xoffSet+1, yoffSet+1, size(subimage,2), size(subimage,1)],'Color',[1 0 0]);
 
 
 

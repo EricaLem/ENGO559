@@ -20,6 +20,8 @@ subimage = rgb2gray(imread('Object.JPG')); % read images and convert to grayscal
 image = rgb2gray(imread('Original.jpg'));
 % image = rgb2gray(imread('Rotated.jpg'));
 % image = rgb2gray(imread('Skewed.jpg'));
+% image = rgb2gray(imread('Scaled.jpg'));
+% image = rgb2gray(imread('Scaled and rotated.jpg'));
 
 
 imshowpair(image, subimage, 'montage')

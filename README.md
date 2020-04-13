@@ -6,7 +6,7 @@ The project examines existing open-source facial regognition algorithms and sugg
 Kelly Harke and Erica Lemieux
 
 ## Due date
-April 6 (?), 2020
+April 14, 2020
 
 # Description - Facial Recognition in Images
 ## Overview
